@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
+from flask_cors import CORS, cross_origin
 import numpy as np
 import re
+from flask import jsonify
 import nltk
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -58,12 +60,15 @@ nb.fit(X_train,y_train)
 
 
 app = Flask(__name__)
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route('/', methods=['GET'])
 def home():
     return "<h1>Distant Reading Archive</h1><p>This site is a prototype API for distant reading of science fiction novels.</p>"
-@app.route('/', methods=['POST'])
+@app.route('/check', methods=['POST'])
+
 def check():
-    data = request.form['header']
+    data = request.json['header']
     
     body = []
     data = re.sub('[^a-zA-Z]', ' ', data)
@@ -79,7 +84,7 @@ def check():
     response = nb.predict(vecArr)
     response = str(response[0])
 
-    return(response)
+    return jsonify(response)
 
 app.run(port='8000', debug=True)
 
