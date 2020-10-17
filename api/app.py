@@ -8,6 +8,7 @@ from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 #nltk.download('stopwords')
 #nltk.download('wordnet')
+nltk.download()
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk import word_tokenize
@@ -48,18 +49,45 @@ vect.fit(X_train)
 nb = MultinomialNB(alpha=0.3)
 nb.fit(train, y_train)
 
-app = Flask(__name__)
-@app.route('/', methods=['POST','GET'])
-def main():
-    if request.method == 'POST':
-        return ("hi")
-        # data = request.form['header']
-        # header = re.sub('[^a-zA-Z]', ' ', header)
-        # header = header.lower()
-		# header = header.split()
-        # lemmatizer = WordNetLemmatizer()
+import flask
 
-        # for word in data:
-        #     data = 
+app = flask.Flask(__name__)
+app.config["DEBUG"] = True
 
+
+@app.route('/', methods=['GET'])
+def home():
+    return "<h1>Distant Reading Archive</h1><p>This site is a prototype API for distant reading of science fiction novels.</p>"
+
+app.run()
+# app = Flask(__name__)
+# @app.route('/')
+# def index():
+#     return "Hello, World!"
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+
+    # @app.route('/')
+    # def hello_world():
+    #     return 'Hello World!'
+
+    # if __name__ == '__main__':
+    #     app.debug = True
+    #     app.run()
+# @app.route('/', methods=['POST','GET'])
+# def main():
+#     if request.method == 'POST':
+#         return ("hi")
+# #         # data = request.form['header']
+# #         # header = re.sub('[^a-zA-Z]', ' ', header)
+# #         # header = header.lower()
+# # 		# header = header.split()
+# #         # lemmatizer = WordNetLemmatizer()
+
+# #         # for word in data:
+# #         #     data = 
+#     if __name__ == "__main__":
+#         app.run(host='0.0.0.0',port='8001',debug=True)
 
