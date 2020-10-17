@@ -11,7 +11,6 @@ from nltk.stem import WordNetLemmatizer
 from nltk import word_tokenize
 from nltk.stem import WordNetLemmatizer
 import pandas as pd
-import numpy as np
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection  import train_test_split
 import re
@@ -22,18 +21,18 @@ import string
 data = pd.read_csv('DataSet1.csv', encoding = 'latin1')
 data = data.dropna(axis = 1, how = 'all')
 
-include = ['title', 'truth ']
+include = ['text', 'truth ']
 ndf = data[include]
 
 ndf = ndf.dropna(axis = 0, how = 'any')
-ndf.title = ndf.title.str.replace('[^a-zA-Z]', ' ')
+ndf.text = ndf.text.str.replace('[^a-zA-Z]', ' ')
 
 
 RE_PREPROCESS = r'\W+|\d+'
-ndf.title = np.array( [ re.sub(RE_PREPROCESS, ' ', title).lower() for title in ndf.title])
+ndf.text = np.array( [ re.sub(RE_PREPROCESS, ' ', text).lower() for text in ndf.text])
 
 ndf = ndf.fillna(method='ffill')
-ndf.title = ndf.title.fillna(method='ffill')
+ndf.text = ndf.text.fillna(method='ffill')
 
 class LemmaTokenizer(object):
     def __init__(self):
@@ -42,7 +41,7 @@ class LemmaTokenizer(object):
         return [self.wnl.lemmatize(t) for t in word_tokenize(articles)]
 
 
-X = ndf.title
+X = ndf.text
 y = ndf['truth ']
 X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=2,shuffle=True)
 
