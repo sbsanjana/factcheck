@@ -3,13 +3,16 @@ import logo from './logo.svg';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css'
 import Breadcrumb from './components/MenuItem'
+import How from './components/How'
 import TextEntry from './components/TextEntry'
-import {Button, Input, Header} from 'semantic-ui-react'
+import {Button, Input, Header, Popup, Grid, GridRow, Icon} from 'semantic-ui-react'
+import Sky from 'react-sky';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  BrowserRouter
 } from "react-router-dom";
 
 export default class App extends React.Component {
@@ -52,12 +55,22 @@ export default class App extends React.Component {
 
   render() {
     return (
+
       <div className="App">
-        <Breadcrumb />
-        <br />
-        <Header style={{fontSize: 50, fontFamily: 'Julius Sans One'}}>FactCheck</Header>
-        <Input style={{paddingRight:10}}placeholder='Enter a news title...' value = {this.state.header} onChange={this.handleChange}/>
-        <Button onClick={this.handleClick}>Check!</Button>
+    
+        <Header style={{fontSize: 50, fontFamily: 'Carrois Gothic SC'}}>FactCheck</Header>
+        <p style={{fontSize: 20}}> Enter the title of a news article below. Upon clicking the check button, you can find out if it's fake or real!</p>
+        <Input style={{paddingRight:10, width: 400}}placeholder='Enter a news title...' value = {this.state.header} onChange={this.handleChange}/>
+        <Button color='green' onClick={this.handleClick}>Check!</Button>
+
+        <br/>
+        <Grid>
+          <GridRow centered style={{marginTop:30}}>
+          <Popup on='click' content='We used a multinomial naive bayes classifier trained on a dataset of news articles, both fake and real. This model is then used to predict the credibility of any news headlines you enter!' trigger={<Icon style={{fontSize: 45}}name ='info' />} />
+          <Icon style={{fontSize: 45}} name ='github' onClick={() => window.location.href = "https://github.com/sbsanjana/factcheck"}/>
+          </GridRow>
+        </Grid>
+
       </div>
     );
   }

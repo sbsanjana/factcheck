@@ -1,4 +1,10 @@
 .App {
+  /* background-image: url(./holo.jpg); */
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-image : url('./bg.jpg');
   text-align: center;
   padding: 2em;
 }
