@@ -55,9 +55,9 @@ export default class App extends React.Component {
       <div className="App">
         <Breadcrumb />
         <br />
-        <Header className = "title">FactCheck</Header>
-        <Input placeholder='Enter a news title...' value = {this.state.header} onChange={this.handleChange}/>
-        <Button onClick={this.handleClick}>Check</Button>
+        <Header style={{fontSize: 50, fontFamily: 'Julius Sans One'}}>FactCheck</Header>
+        <Input style={{paddingRight:10}}placeholder='Enter a news title...' value = {this.state.header} onChange={this.handleChange}/>
+        <Button onClick={this.handleClick}>Check!</Button>
       </div>
     );
   }
